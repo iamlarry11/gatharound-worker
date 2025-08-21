@@ -24,6 +24,18 @@ export default {
       const deepLink = `gatharound://emailConfirm${search}`;
       return Response.redirect(deepLink, 301);
     }
+    
+    // редирект для emailConfirm
+    if (pathname.startsWith("/recipes")) {
+      const deepLink = `gatharound://recipes${search}`;
+      return Response.redirect(deepLink, 301);
+    }
+    
+    // редирект для emailConfirm
+    if (pathname.startsWith("/invites")) {
+      const deepLink = `gatharound://invites${search}`;
+      return Response.redirect(deepLink, 301);
+    }
 
     // кастомная 404
     return new Response(
