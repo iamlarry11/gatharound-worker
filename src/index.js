@@ -18,6 +18,22 @@ export default {
       return Response.redirect(deepLink, 302);
     }
 
-    return new Response("Not found", { status: 404 });
+    // кастомная 404
+    return new Response(
+      `
+      <html>
+        <head><title>Страница не найдена</title></head>
+        <body style="font-family: sans-serif; text-align: center; margin-top: 50px;">
+          <h1>Упс!</h1>
+          <p>Такой страницы не существует.</p>
+          <p><a href="https://gatharound.com">Вернуться на главную</a></p>
+        </body>
+      </html>
+      `,
+      {
+        status: 404,
+        headers: { "Content-Type": "text/html; charset=utf-8" }
+      }
+    );
   }
 };
