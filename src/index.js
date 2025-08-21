@@ -1,4 +1,4 @@
-const AASA_JSON = '{"applinks":{"details":[{"appID":"K4CWFUNVVK.com.appgatharound.app","paths":["/recipes/*","/invites/*","/emailConfirm*"]}]},"webcredentials":{"apps":["K4CWFUNVVK.com.appgatharound.app"]}}';
+const AASA_JSON = '{"applinks":{"details":[{"appID":"K4CWFUNVVK.com.appgatharound.app","paths":["/recipes/*","/invites/*","/emailConfirm*","/test*"]}]},"webcredentials":{"apps":["K4CWFUNVVK.com.appgatharound.app"]}}';
 
 export default {
   async fetch(request) {
