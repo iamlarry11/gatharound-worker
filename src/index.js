@@ -25,15 +25,17 @@ export default {
       return Response.redirect(deepLink, 301);
     }
     
-    // редирект для emailConfirm
+    // редирект для recipes
     if (pathname.startsWith("/recipes")) {
-      const deepLink = `gatharound://recipes${search}`;
+      const tail = pathname.replace(/^\\//, ""); // убираем ведущий /
+      const deepLink = `gatharound://${tail}`;
       return Response.redirect(deepLink, 301);
     }
     
-    // редирект для emailConfirm
+    // редирект для invites
     if (pathname.startsWith("/invites")) {
-      const deepLink = `gatharound://invites${search}`;
+      const tail = pathname.replace(/^\\//, ""); // убираем ведущий /
+      const deepLink = `gatharound://${tail}`;
       return Response.redirect(deepLink, 301);
     }
 
