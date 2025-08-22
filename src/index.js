@@ -25,20 +25,18 @@ export default {
       return Response.redirect(deepLink, 301);
     }
     
-		// recipes
-	if (pathname.startsWith("/recipes")) {
-	  const tail = pathname.replace(/^\//, ""); // убираем ведущий /
-	  const deepLink = `gatharound://${tail}`;
-	  return Response.redirect(deepLink, 301);
-	}
-	
-	// invites
-	if (pathname.startsWith("/invites")) {
-	  const tail = pathname.replace(/^\//, ""); // убираем ведущий /
-	  const deepLink = `gatharound://${tail}`;
-	  return Response.redirect(deepLink, 301);
-	}
+// recipes
+if (pathname.startsWith("/recipes/")) {
+  // убираем первый слэш, чтобы не было gatharound:///...
+  const deepLink = `gatharound://${pathname.slice(1)}`;
+  return Response.redirect(deepLink, 301);
+}
 
+// invites
+if (pathname.startsWith("/invites/")) {
+  const deepLink = `gatharound://${pathname.slice(1)}`;
+  return Response.redirect(deepLink, 301);
+}
     // кастомная 404
     return new Response(
       `
