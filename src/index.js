@@ -43,19 +43,19 @@ export default {
     // 4) emailConfirm → deep link
     if (pathname.startsWith("/emailConfirm")) {
       const deepLink = `gatharound://emailConfirm${search || ""}`;
-      return Response.redirect(deepLink, 302);
+      return Response.redirect(deepLink, 301);
     }
 
     // 5) recipes → deep link
     if (pathname.startsWith("/recipes/")) {
       const deepLink = toDeepLink(pathname, search);
-      return Response.redirect(deepLink, 302);
+      return Response.redirect(deepLink, 301);
     }
 
     // 6) invites → deep link
     if (pathname.startsWith("/invites/")) {
       const deepLink = toDeepLink(pathname, search);
-      return Response.redirect(deepLink, 302);
+      return Response.redirect(deepLink, 301);
     }
 
     // 7) Кастомная 404
