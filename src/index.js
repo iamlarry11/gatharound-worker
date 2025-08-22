@@ -25,19 +25,19 @@ export default {
       return Response.redirect(deepLink, 301);
     }
     
-    // редирект для recipes
-    if (pathname.startsWith("/recipes")) {
-      const tail = pathname.replace(/^\\//, ""); // убираем ведущий /
-      const deepLink = `gatharound://${tail}`;
-      return Response.redirect(deepLink, 301);
-    }
-    
-    // редирект для invites
-    if (pathname.startsWith("/invites")) {
-      const tail = pathname.replace(/^\\//, ""); // убираем ведущий /
-      const deepLink = `gatharound://${tail}`;
-      return Response.redirect(deepLink, 301);
-    }
+		// recipes
+	if (pathname.startsWith("/recipes")) {
+	  const tail = pathname.replace(/^\//, ""); // убираем ведущий /
+	  const deepLink = `gatharound://${tail}`;
+	  return Response.redirect(deepLink, 301);
+	}
+	
+	// invites
+	if (pathname.startsWith("/invites")) {
+	  const tail = pathname.replace(/^\//, ""); // убираем ведущий /
+	  const deepLink = `gatharound://${tail}`;
+	  return Response.redirect(deepLink, 301);
+	}
 
     // кастомная 404
     return new Response(
