@@ -12,9 +12,9 @@ const BADGE_PLAY  = "https://github.com/iamlarry11/gatharound-worker/blob/main/b
 function isDeepLinkPath(pathname){ return pathname.includes("gatharound://"); }
 function toDeepLink(pathname, search=""){ return `gatharound://${pathname.replace(/^\/+/,"")}${search||""}`; }
 
-/* ===================== RECIPES — вертикальная верстка ===================== */
+/* ===================== RECIPES ===================== */
 function recipesLandingHTML({ currentUrl, deepLink }) {
-  const qr = `https://api.qrserver.com/v1/create-qr-code/?size=520x520&data=${encodeURIComponent(currentUrl)}`;
+  const qr = `https://api.qrserver.com/v1/create-qr-code/?size=480x480&data=${encodeURIComponent(currentUrl)}`;
   return `
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8" />
@@ -24,27 +24,21 @@ function recipesLandingHTML({ currentUrl, deepLink }) {
 <style>
 :root{
   --fg:#fff;
-  --muted:rgba(255,255,255,.92);
   --shadow:rgba(0,0,0,.45);
-  --btn:#6a8ec4;          /* ближе к референсу */
-  --btn-shadow:rgba(106,142,196,.35);
+  --btn:#5f88b9;
+  --btn-shadow:rgba(95,136,185,.35);
 }
 
-/* Base */
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0; color:var(--fg);
   font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;
   background:#000 url('${BG_IMG}') center/cover no-repeat fixed;
-  position:relative;
 }
-/* мягкая виньетка без «бокса» */
 body::before{
   content:""; position:fixed; inset:0;
-  background:
-    radial-gradient(1200px 600px at 50% 15%, rgba(0,0,0,.15), transparent 60%),
-    linear-gradient(180deg, rgba(0,0,0,.30) 0%, rgba(0,0,0,.40) 60%, rgba(0,0,0,.52) 100%);
+  background:linear-gradient(180deg, rgba(0,0,0,.28) 0%, rgba(0,0,0,.42) 65%, rgba(0,0,0,.5) 100%);
 }
 
 .container{
@@ -54,67 +48,71 @@ body::before{
   margin:0 auto;
   padding: calc(22px + env(safe-area-inset-top)) 18px calc(22px + env(safe-area-inset-bottom));
   display:flex; flex-direction:column; align-items:center; text-align:center;
-  gap:12px;
+  gap:14px;
 }
 
-/* Типографика — уменьшено */
+/* Тайтл */
 .h1{
   margin:0;
-  font-weight:800; letter-spacing:-.01em; line-height:1.22;
+  font-weight:800; line-height:1.2; letter-spacing:-.01em;
   text-shadow:0 2px 12px var(--shadow);
-  font-size:clamp(22px, 3.6vw, 44px);  /* было до 56px */
+  font-size:clamp(20px, 3.2vw, 34px); /* уменьшено */
 }
+
+/* Подзаголовок = 25% меньше тайтла */
 .sub{
-  margin:0 0 4px; color:var(--muted);
-  font-size:clamp(13px, 1.4vw, 18px);  /* чуть меньше тайтла */
+  margin:0;
+  font-weight:700; line-height:1.25;
+  text-shadow:0 2px 10px var(--shadow);
+  font-size:clamp(15px, 2.4vw, 25px); /* 25% меньше чем .h1 */
 }
+
+/* URL */
 .url{
-  margin:4px 0 6px;
+  margin:4px 0 8px;
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
   font-size:clamp(12px, 1.1vw, 15px);
   opacity:.95;
 }
 
-/* QR уменьшен */
+/* QR */
 .qrWrap{
   background:#fff; padding:12px; border-radius:18px;
-  box-shadow:0 20px 60px rgba(0,0,0,.45);
+  box-shadow:0 16px 50px rgba(0,0,0,.45);
 }
 .qr{
-  width:clamp(220px, 24vw, 340px);   /* было до 420px */
-  height:clamp(220px, 24vw, 340px);
+  width:clamp(200px, 22vw, 300px);
+  height:clamp(200px, 22vw, 300px);
   display:block; border-radius:12px;
 }
 
+/* Hint */
 .hint{
-  margin:10px 0 0; color:var(--muted);
+  margin:10px 0 0;
   font-size:clamp(12px, 1.0vw, 13.5px);
+  opacity:.9;
 }
 
-/* Кнопка — цвет и габариты под референс */
+/* Кнопка */
 .btn{
   display:block; text-decoration:none; color:#fff; font-weight:700;
   background:var(--btn); border-radius:12px;
   padding:14px 20px; margin-top:8px;
-  width:clamp(220px, 26vw, 340px);
-  box-shadow:0 12px 36px var(--btn-shadow);
+  width:clamp(220px, 26vw, 320px);
+  box-shadow:0 10px 28px var(--btn-shadow);
 }
 
-/* Бейджи немного компактнее */
+/* Бейджи */
 .badges{ display:flex; gap:10px; justify-content:center; align-items:center; margin-top:8px; flex-wrap:wrap; }
-.badges img{ height:clamp(38px, 4.6vw, 52px); display:block }
+.badges img{ height:clamp(38px, 4.6vw, 50px); display:block }
 
-/* Адаптация «по высоте», чтобы всё влезало */
-@media (max-height: 780px){
-  .h1{ font-size:clamp(20px, 3.2vw, 36px); }
-  .sub{ font-size:clamp(12px, 1.2vw, 16px); }
-  .qr{ width:clamp(200px, 22vw, 300px); height:clamp(200px, 22vw, 300px); }
-  .btn{ width:clamp(210px, 24vw, 300px); padding:12px 18px; }
-  .badges img{ height:clamp(34px, 4vw, 46px); }
-}
-@media (max-height: 680px){
+/* Чтобы влезало в экран */
+@media (max-height: 750px){
+  .h1{ font-size:clamp(18px, 2.8vw, 28px); }
+  .sub{ font-size:clamp(14px, 2.2vw, 21px); }
   .qr{ width:clamp(180px, 20vw, 260px); height:clamp(180px, 20vw, 260px); }
-  .container{ gap:10px; }
+  .btn{ width:clamp(200px, 24vw, 280px); padding:12px 18px; }
+  .badges img{ height:clamp(34px, 4vw, 44px); }
 }
 </style>
 <script>
@@ -165,7 +163,7 @@ export default {
       return Response.redirect(deepLink, 302);
     }
 
-    // RECIPES -> вертикальная страница
+    // RECIPES
     if (pathname.startsWith("/recipes/")) {
       const deepLink = toDeepLink(pathname, search);
       const html = recipesLandingHTML({ currentUrl: url.href, deepLink });
@@ -175,7 +173,7 @@ export default {
       });
     }
 
-    // INVITES -> прямой редирект, как было
+    // INVITES -> прямой редирект
     if (pathname.startsWith("/invites/")) {
       const deepLink = toDeepLink(pathname, search);
       return Response.redirect(deepLink, 302);
