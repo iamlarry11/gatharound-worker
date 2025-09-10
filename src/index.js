@@ -48,6 +48,7 @@ body::before{
   margin:0 auto;
   padding: calc(22px + env(safe-area-inset-top)) 18px calc(22px + env(safe-area-inset-bottom));
   display:flex; flex-direction:column; align-items:center; text-align:center;
+  justify-content:center;   /* центрируем вертикально */
   gap:14px;
 }
 
@@ -56,18 +57,17 @@ body::before{
   margin:0;
   font-weight:800; line-height:1.2; letter-spacing:-.01em;
   text-shadow:0 2px 12px var(--shadow);
-  font-size:clamp(20px, 3.2vw, 34px); /* уменьшено */
+  font-size:clamp(20px, 3.2vw, 34px);
 }
 
-/* Подзаголовок = 25% меньше тайтла */
+/* Сабтайтл (на 25% меньше тайтла) */
 .sub{
   margin:0;
   font-weight:700; line-height:1.25;
   text-shadow:0 2px 10px var(--shadow);
-  font-size:clamp(15px, 2.4vw, 25px); /* 25% меньше чем .h1 */
+  font-size:clamp(15px, 2.4vw, 25px);
 }
 
-/* URL */
 .url{
   margin:4px 0 8px;
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -106,8 +106,9 @@ body::before{
 .badges{ display:flex; gap:10px; justify-content:center; align-items:center; margin-top:8px; flex-wrap:wrap; }
 .badges img{ height:clamp(38px, 4.6vw, 50px); display:block }
 
-/* Чтобы влезало в экран */
+/* Если экран низкий — «растягиваем» контент */
 @media (max-height: 750px){
+  .container{ justify-content:space-between; }
   .h1{ font-size:clamp(18px, 2.8vw, 28px); }
   .sub{ font-size:clamp(14px, 2.2vw, 21px); }
   .qr{ width:clamp(180px, 20vw, 260px); height:clamp(180px, 20vw, 260px); }
@@ -163,7 +164,6 @@ export default {
       return Response.redirect(deepLink, 302);
     }
 
-    // RECIPES
     if (pathname.startsWith("/recipes/")) {
       const deepLink = toDeepLink(pathname, search);
       const html = recipesLandingHTML({ currentUrl: url.href, deepLink });
@@ -173,21 +173,11 @@ export default {
       });
     }
 
-    // INVITES -> прямой редирект
     if (pathname.startsWith("/invites/")) {
       const deepLink = toDeepLink(pathname, search);
       return Response.redirect(deepLink, 302);
     }
 
-    return new Response(
-      `<!doctype html><html><head><meta charset="utf-8"/><title>Not Found</title>
-       <meta name="viewport" content="width=device-width, initial-scale=1"/></head>
-       <body style="font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;margin:0;display:grid;place-items:center;min-height:100dvh;background:#f7f7f8;color:#111">
-       <div style="max-width:560px;padding:32px 28px;background:#fff;border-radius:16px;box-shadow:0 6px 30px rgba(0,0,0,.08)">
-       <h1 style="margin:0 0 8px">404</h1><p style="margin:0 0 16px;color:#333">Page not found.</p>
-       <a href="https://gatharound.com" style="display:inline-block;margin-top:8px;text-decoration:none;background:#111;color:#fff;padding:10px 16px;border-radius:10px">Back to Home</a>
-       </div></body></html>`.trim(),
-      { status: 404, headers: { "Content-Type":"text/html; charset=utf-8" } }
-    );
+    return new Response("<h1>404</h1>", { status: 404 });
   }
 };
