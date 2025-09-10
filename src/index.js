@@ -40,7 +40,7 @@ body::before{
 .container{
   position:relative; z-index:1;
   min-height:100dvh;
-  max-width:980px;
+  max-width:1200px;   /* увеличено */
   margin:0 auto;
   padding: calc(22px + env(safe-area-inset-top)) 18px calc(22px + env(safe-area-inset-bottom));
   display:flex; flex-direction:column; align-items:center; text-align:center;
@@ -52,18 +52,24 @@ body::before{
   font-weight:800; line-height:1.2; letter-spacing:-.01em;
   text-shadow:0 2px 12px var(--shadow);
   font-size:34px;
-  max-width:90%;
-  word-wrap:break-word;
-  overflow-wrap:break-word;
+  max-width:1100px;
+  white-space:normal;
+  overflow-wrap:normal;
+  word-break:normal;
+  text-wrap:balance;
+  text-wrap:pretty;
 }
 .sub{
   margin:0;
   font-weight:700; line-height:1.25;
   text-shadow:0 2px 10px var(--shadow);
-  font-size:25px;
-  max-width:90%;
-  word-wrap:break-word;
-  overflow-wrap:break-word;
+  font-size:25px;  /* на 25% меньше тайтла */
+  max-width:1100px;
+  white-space:normal;
+  overflow-wrap:normal;
+  word-break:normal;
+  text-wrap:balance;
+  text-wrap:pretty;
 }
 .url{
   margin:4px 0 8px;
@@ -97,8 +103,8 @@ body::before{
 .badges{ display:flex; gap:10px; justify-content:center; align-items:center; margin-top:8px; flex-wrap:wrap; }
 .badges img{ height:50px; display:block }
 @media (max-width: 480px){
-  .h1{ font-size:28px; }
-  .sub{ font-size:21px; }
+  .h1{ font-size:28px; max-width:92vw; }
+  .sub{ font-size:21px; max-width:92vw; }
   .qr{ width:300px; height:300px; }
   .btn{ width:300px; }
   .badges img{ height:46px; }
