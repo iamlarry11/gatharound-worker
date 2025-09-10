@@ -12,9 +12,9 @@ const BADGE_PLAY  = "https://github.com/iamlarry11/gatharound-worker/blob/main/b
 function isDeepLinkPath(pathname){ return pathname.includes("gatharound://"); }
 function toDeepLink(pathname, search=""){ return `gatharound://${pathname.replace(/^\/+/,"")}${search||""}`; }
 
-/* ===================== RECIPES — вертикальная верстка как в макете ===================== */
+/* ===================== RECIPES — вертикальная верстка ===================== */
 function recipesLandingHTML({ currentUrl, deepLink }) {
-  const qr = `https://api.qrserver.com/v1/create-qr-code/?size=560x560&data=${encodeURIComponent(currentUrl)}`;
+  const qr = `https://api.qrserver.com/v1/create-qr-code/?size=520x520&data=${encodeURIComponent(currentUrl)}`;
   return `
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8" />
@@ -26,8 +26,8 @@ function recipesLandingHTML({ currentUrl, deepLink }) {
   --fg:#fff;
   --muted:rgba(255,255,255,.92);
   --shadow:rgba(0,0,0,.45);
-  --btn:#6f93d5;             /* мягкий сине-голубой как на референсе */
-  --btn-shadow:rgba(111,147,213,.35);
+  --btn:#6a8ec4;          /* ближе к референсу */
+  --btn-shadow:rgba(106,142,196,.35);
 }
 
 /* Base */
@@ -39,80 +39,87 @@ body{
   background:#000 url('${BG_IMG}') center/cover no-repeat fixed;
   position:relative;
 }
-/* лёгкая виньетка, без затемнённого «бокса» */
+/* мягкая виньетка без «бокса» */
 body::before{
   content:""; position:fixed; inset:0;
   background:
-    radial-gradient(1200px 600px at 50% 15%, rgba(0,0,0,.15), transparent 60%) ,
-    linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.45) 65%, rgba(0,0,0,.55) 100%);
+    radial-gradient(1200px 600px at 50% 15%, rgba(0,0,0,.15), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,.30) 0%, rgba(0,0,0,.40) 60%, rgba(0,0,0,.52) 100%);
 }
 
-/* Вертикальная колонка */
 .container{
   position:relative; z-index:1;
   min-height:100dvh;
-  max-width:1040px;
+  max-width:980px;
   margin:0 auto;
-  padding: calc(24px + env(safe-area-inset-top)) 20px calc(24px + env(safe-area-inset-bottom));
+  padding: calc(22px + env(safe-area-inset-top)) 18px calc(22px + env(safe-area-inset-bottom));
   display:flex; flex-direction:column; align-items:center; text-align:center;
-  gap:16px;
+  gap:12px;
 }
 
-/* Типографика как в примере */
+/* Типографика — уменьшено */
 .h1{
   margin:0;
-  font-weight:800; letter-spacing:-.01em; line-height:1.2;
+  font-weight:800; letter-spacing:-.01em; line-height:1.22;
   text-shadow:0 2px 12px var(--shadow);
-  font-size:clamp(24px, 4.2vw, 56px);
+  font-size:clamp(22px, 3.6vw, 44px);  /* было до 56px */
 }
 .sub{
-  margin:0 0 6px; color:var(--muted);
-  font-size:clamp(14px, 1.6vw, 22px);
+  margin:0 0 4px; color:var(--muted);
+  font-size:clamp(13px, 1.4vw, 18px);  /* чуть меньше тайтла */
 }
 .url{
-  margin:6px 0 8px;
+  margin:4px 0 6px;
   font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:clamp(12px, 1.2vw, 16px);
+  font-size:clamp(12px, 1.1vw, 15px);
   opacity:.95;
 }
 
-/* QR строго по центру */
+/* QR уменьшен */
 .qrWrap{
-  background:#fff; padding:14px; border-radius:18px;
+  background:#fff; padding:12px; border-radius:18px;
   box-shadow:0 20px 60px rgba(0,0,0,.45);
 }
 .qr{
-  width:clamp(260px, 28vw, 420px);
-  height:clamp(260px, 28vw, 420px);
+  width:clamp(220px, 24vw, 340px);   /* было до 420px */
+  height:clamp(220px, 24vw, 340px);
   display:block; border-radius:12px;
 }
 
-/* Подпись */
 .hint{
-  margin:14px 0 0; color:var(--muted);
-  font-size:clamp(12px, 1.1vw, 14px);
+  margin:10px 0 0; color:var(--muted);
+  font-size:clamp(12px, 1.0vw, 13.5px);
 }
 
-/* Кнопка */
+/* Кнопка — цвет и габариты под референс */
 .btn{
   display:block; text-decoration:none; color:#fff; font-weight:700;
-  background:var(--btn); border-radius:14px;
-  padding:16px 22px; margin-top:8px;
-  width:clamp(240px, 28vw, 420px);
-  box-shadow:0 12px 40px var(--btn-shadow);
+  background:var(--btn); border-radius:12px;
+  padding:14px 20px; margin-top:8px;
+  width:clamp(220px, 26vw, 340px);
+  box-shadow:0 12px 36px var(--btn-shadow);
 }
 
-/* Бейджи */
-.badges{ display:flex; gap:12px; justify-content:center; align-items:center; margin-top:10px; flex-wrap:wrap; }
-.badges img{ height:clamp(40px, 5vw, 58px); display:block }
+/* Бейджи немного компактнее */
+.badges{ display:flex; gap:10px; justify-content:center; align-items:center; margin-top:8px; flex-wrap:wrap; }
+.badges img{ height:clamp(38px, 4.6vw, 52px); display:block }
 
-/* Тонкая настройка на узких экранах */
-@media (max-width: 480px){
-  .container{ gap:14px; }
-  .btn{ width:100%; }
+/* Адаптация «по высоте», чтобы всё влезало */
+@media (max-height: 780px){
+  .h1{ font-size:clamp(20px, 3.2vw, 36px); }
+  .sub{ font-size:clamp(12px, 1.2vw, 16px); }
+  .qr{ width:clamp(200px, 22vw, 300px); height:clamp(200px, 22vw, 300px); }
+  .btn{ width:clamp(210px, 24vw, 300px); padding:12px 18px; }
+  .badges img{ height:clamp(34px, 4vw, 46px); }
+}
+@media (max-height: 680px){
+  .qr{ width:clamp(180px, 20vw, 260px); height:clamp(180px, 20vw, 260px); }
+  .container{ gap:10px; }
 }
 </style>
-<script>document.addEventListener('DOMContentLoaded',()=>{ setTimeout(()=>{ location.href=${JSON.stringify(deepLink)} },700); });</script>
+<script>
+document.addEventListener('DOMContentLoaded',()=>{ setTimeout(()=>{ location.href=${JSON.stringify(deepLink)} },700); });
+</script>
 </head>
 <body>
   <main class="container">
@@ -139,7 +146,6 @@ export default {
     const url = new URL(request.url);
     const { pathname, search } = url;
 
-    // AASA
     if (pathname === "/.well-known/apple-app-site-association") {
       return new Response(AASA_JSON, {
         headers: { "Content-Type": "application/json", "Cache-Control": "public, max-age=86400" }
@@ -169,13 +175,12 @@ export default {
       });
     }
 
-    // INVITES -> как изначально (прямой редирект)
+    // INVITES -> прямой редирект, как было
     if (pathname.startsWith("/invites/")) {
       const deepLink = toDeepLink(pathname, search);
       return Response.redirect(deepLink, 302);
     }
 
-    // 404
     return new Response(
       `<!doctype html><html><head><meta charset="utf-8"/><title>Not Found</title>
        <meta name="viewport" content="width=device-width, initial-scale=1"/></head>
